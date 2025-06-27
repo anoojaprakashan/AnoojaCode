@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<StudentRegistrationApp_Project.Models.Student>
+
+<h2>Student List</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Qualifications</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentId</td>
+                <td>@student.FirstName @student.LastName</td>
+                <td>@student.Email</td>
+                <td>@student.PhoneNumber</td>
+                <td>
+                    <ul>
+                        @foreach (var q in student.Qualifications)
+                        {
+                            <li>@q.CourseName, @q.University, @q.YearOfPassing, @q.Percentage%</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

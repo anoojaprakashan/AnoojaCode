@@ -1,0 +1,70 @@
+﻿
+@model StudentRegistrationApp_Project.Models.Student
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    <h2>Student Registration</h2>
+
+    <div>@Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)</div>
+    <div>@Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)</div>
+    <div>@Html.LabelFor(m => m.Age) @Html.TextBoxFor(m => m.Age)</div>
+    <div>@Html.LabelFor(m => m.DOB) @Html.TextBoxFor(m => m.DOB, new { type = "date" })</div>
+    <div>
+        @Html.LabelFor(m => m.Gender)
+    @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female", "Other" }))
+</div>
+<div>@Html.LabelFor(m => m.Email) @Html.TextBoxFor(m => m.Email)</div>
+<div>@Html.LabelFor(m => m.PhoneNumber) @Html.TextBoxFor(m => m.PhoneNumber)</div>
+<div>@Html.LabelFor(m => m.Username) @Html.TextBoxFor(m => m.Username)</div>
+<div>@Html.LabelFor(m => m.Password) @Html.PasswordFor(m => m.Password)</div>
+
+<h4>Qualifications</h4>
+<table id="qualificationTable">
+    <tr>
+        <th>Course</th>
+        <th>University</th>
+        <th>Year</th>
+        <th>Percentage</th>
+    </tr>
+    <tr>
+        <td><input name="Qualifications[0].CourseName" /></td>
+        <td><input name="Qualifications[0].University" /></td>
+        <td><input name="Qualifications[0].YearOfPassing" type="number" /></td>
+        <td><input name="Qualifications[0].Percentage" type="number" /></td>
+    </tr>
+</table>
+<button type="button" onclick="addRow()">Add</button>
+<br />
+<br />
+<button type="submit">Register</button>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
+    <script>
+        let index = 1;
+        function addRow() {
+            let row = `
+                <tr>
+                    <td><input name="Qualifications[${index}].CourseName" /></td>
+                    <td><input name="Qualifications[${index}].University" /></td>
+                    <td><input name="Qualifications[${index}].YearOfPassing" type="number" /></td>
+                    <td><input name="Qualifications[${index}].Percentage" type="number" /></td>
+                </tr>`;
+            $("#qualificationTable").append(row);
+            index++;
+        }
+
+        $("form").validate({
+            rules: {
+                FirstName: "required",
+                Age: "required",
+                DOB: "required",
+                Gender: "required",
+                Email: "required",
+                PhoneNumber: "required"
+            }
+        });
+    </script>
+}

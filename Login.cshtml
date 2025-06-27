@@ -1,0 +1,9 @@
+﻿
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    <h2>Login</h2>
+    <div>Username: <input name="Username" /></div>
+    <div>Password: <input name="Password" type="password" /></div>
+    <button type="submit">Login</button>
+    <span style="color:red">@ViewBag.Error</span>
+}
